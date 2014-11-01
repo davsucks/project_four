@@ -1,8 +1,10 @@
 #include "Structure.h"
 using namespace std;
 
-Structure::Structure(std::string _name, Point _location)
-	: name(_name), location(_location.x, _location.y)
+Structure::Structure(std::string name_, Point location_)
+:
+name(name_),
+location(location_.x, location_.y)
 {
 		cout << "Structure " << name << " constructed" << endl;
 }
