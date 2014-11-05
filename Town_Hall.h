@@ -1,3 +1,5 @@
+#ifndef TOWN_HALL_H
+#define TOWN_HALL_H
 /* 
 A Town_Hall is a structure that provides for depositing and withdrawing food,
 but does no updating.
@@ -22,3 +24,5 @@ public:
 private:
 	double amount;
 };
+
+#endif

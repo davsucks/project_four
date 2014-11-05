@@ -11,13 +11,25 @@ OBJS += Agent_factory.o Structure_factory.o
 OBJS += Geometry.o Utility.o
 PROG = proj4exe
 
+TEST_OBJS = test.o Sim_object.o Structure.o Farm.o Geometry.o
+TEST = testexe
+
+
 default: $(PROG)
+
+test: $(TEST)
 
 $(PROG): $(OBJS)
 	$(LD) $(LFLAGS) $(OBJS) -o $(PROG)
 
+$(TEST): $(TEST_OBJS)
+	$(LD) $(LFLAGS) $(TEST_OBJS) -o $(TEST)
+
 p4_main.o: p4_main.cpp Model.h Controller.h
 	$(CC) $(CFLAGS) p4_main.cpp
+
+test.o: test.cpp Farm.h
+	$(CC) $(CFLAGS) test.cpp
 
 Model.o: Model.cpp Model.h View.h Sim_object.h Structure.h Agent.h Agent_factory.h Structure_factory.h Geometry.h Utility.h
 	$(CC) $(CFLAGS) Model.cpp

@@ -1,31 +1,37 @@
+#ifndef STRUCTURE_H
+#define STRUCTURE_H
+
 /* A Structure is a Sim_object with a location and interface to derived types */
 #include <string>
 #include <iostream>
 #include "Geometry.h"
+#include "Sim_object.h"
 
-class Structure : Sim_object {
+class Structure : public Sim_object {
 public:
 	Structure(std::string _name, Point _location);
 
 	virtual ~Structure() = 0;
 		
-	Point get_location()
+	Point get_location() const
 	{return location;}
 
 	void update(){/*noop*/};
 
 	// output information about the current state
-	void describe();
+	virtual void describe() const;
 
 	// ask model to notify views of current state
     void broadcast_current_state();
     
 	// fat interface for derived types	
-	double withdraw(double amount_to_get)
+	virtual double withdraw(double amount_to_get)
 	{return 0.0;}
-	void deposit(double amount_to_give)
+	virtual void deposit(double amount_to_give)
 	{}
 
 private:
 	Point location;
 };
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef AGENT_H
+#define AGENT_H
 /* 
 Agents are a kind of Sim_object, and privately inherit from Moving_object.
 Agents can be commanded to move to a destination. Agents have a health, which
@@ -5,7 +7,9 @@ is decreased when they take a hit. If the Agent's health > 0, it is alive.
 If its heath <= 0, it starts dying, then on subsequent updates, 
 it becomes dead, and finally disappearing.
 */
-
+#include <string>
+#include "Sim_object.h"
+#include "Moving_object.h"
 /* 
 *** This skeleton file shows the required public interface for the class, which you may not modify. 
 If no protected members are shown, there must be none in your version. 
@@ -15,17 +19,18 @@ You must delete this comment and all other comments that start with "***".
 
 
 class Structure;
+class Point;
 
 // *** declare as inheriting from Sim_object and Moving_object, as specified
-
+class Agent : Sim_object, Moving_object {
 public:
 
 	// *** declare destructor so that a message can be output in the destructor definition
 
 	// *** provide the definition of the following reader functions here in the class declaration
 	// return true if this agent is Alive or Disappearing
-	bool is_alive() const
-	bool is_disappearing() const
+	bool is_alive() const;
+	bool is_disappearing() const;
 	
 	// return this Agent's location
 	Point get_location() const override;
@@ -69,3 +74,6 @@ protected:
 	// calculate loss of health due to hit.
 	// if health decreases to zero or negative, Agent state becomes Dying, and any movement is stopped.
 	void lose_health(int attack_strength);
+};
+
+#endif

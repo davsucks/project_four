@@ -1,11 +1,14 @@
+#ifndef FARM_H
+#define FARM_H
 /*
 A Farm is a Structure that when updated, increments the amount of food on hand
 by the production rate amount.
 Food can be withdrawn, but no provision is made for depositing any.
 */
-#include "Farm.h"
-
-class Farm : Structure {
+#include "Structure.h"
+// forward declare Point
+class Point;
+class Farm : public Structure {
 public:
 	Farm (const std::string& name_, Point location_);
 	~Farm();
@@ -23,3 +26,5 @@ private:
 	double amount;
 	double production_rate;
 };
+
+#endif

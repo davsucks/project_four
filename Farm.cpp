@@ -1,19 +1,19 @@
 #include "Farm.h"
+#include <iostream>
 using namespace std;
 
-Farm::Farm(string& name_, Point location_)
+Farm::Farm(const string& name_, Point location_)
 : 
-name(name_),
-location(location_.x, location_.y),
+Structure(name_, location_),
 amount{50},
 production_rate{2}
 {
-	cout << "Farm " <<  << " constructed" << endl;
+	cout << "Farm " << name_ << " constructed" << endl;
 }
 
 Farm::~Farm()
 {
-	cout << "Farm " <<  << " destructed" << endl;	
+	cout << "Farm " << get_name() << " destructed" << endl;
 }
 
 double Farm::withdraw(double amount_to_get)
@@ -28,11 +28,12 @@ double Farm::withdraw(double amount_to_get)
 void Farm::update()
 {
 	amount += production_rate;
-	cout << "Farm " <<  << " now has " << << endl;
+	cout << "Farm " << get_name() << " now has " << amount << endl;
 }
 
-void Farm::describe()
+void Farm::describe() const
 {
-	cout << "Farm " << Structure::describe();
-	cout << "   Food available: " <<  << endl;
+	cout << "Farm ";
+	Structure::describe();
+	cout << "   Food available: " << amount << endl;
 }

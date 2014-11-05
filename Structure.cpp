@@ -1,19 +1,26 @@
 #include "Structure.h"
+#include "Geometry.h"
+#include <iostream>
 using namespace std;
 
 Structure::Structure(std::string name_, Point location_)
 :
-name(name_),
+Sim_object(name_),
 location(location_.x, location_.y)
 {
-		cout << "Structure " << name << " constructed" << endl;
+		cout << "Structure " << name_ << " constructed" << endl;
 }
 Structure::~Structure()
 {
-	cout << "Structure " << name << " destructed" << endl;
+	cout << "Structure " << get_name() << " destructed" << endl;
 }
 
-void Structure::describe()
+void Structure::describe() const
 {
-	cout << name << " at " << location << endl;
+	cout << Sim_object::get_name() << " at " << location << endl;
+}
+
+void Structure::broadcast_current_state()
+{
+	// TODO: add something here
 }
