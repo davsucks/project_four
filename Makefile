@@ -11,25 +11,25 @@ OBJS += Agent_factory.o Structure_factory.o
 OBJS += Geometry.o Utility.o
 PROG = proj4exe
 
-TEST_OBJS = test.o Sim_object.o Structure.o Farm.o Geometry.o
-TEST = testexe
+TEST_OBJS = Test.o Sim_object.o Structure.o Farm.o Geometry.o
+TEST_EXE = testexe
 
 
 default: $(PROG)
 
-test: $(TEST)
+test: $(TEST_EXE)
 
 $(PROG): $(OBJS)
 	$(LD) $(LFLAGS) $(OBJS) -o $(PROG)
 
-$(TEST): $(TEST_OBJS)
-	$(LD) $(LFLAGS) $(TEST_OBJS) -o $(TEST)
+$(TEST_EXE): $(TEST_OBJS)
+	$(LD) $(LFLAGS) $(TEST_OBJS) -o $(TEST_EXE)
 
 p4_main.o: p4_main.cpp Model.h Controller.h
 	$(CC) $(CFLAGS) p4_main.cpp
 
-test.o: test.cpp Farm.h
-	$(CC) $(CFLAGS) test.cpp
+Test.o: Test.cpp Farm.h
+	$(CC) $(CFLAGS) Test.cpp
 
 Model.o: Model.cpp Model.h View.h Sim_object.h Structure.h Agent.h Agent_factory.h Structure_factory.h Geometry.h Utility.h
 	$(CC) $(CFLAGS) Model.cpp
@@ -80,4 +80,5 @@ clean:
 	rm -f *.o
 real_clean:
 	rm -f $(PROG)
+	rm -f $(TEST_EXE)
 	rm -f *.o
