@@ -7,17 +7,12 @@ deposits the food, returns to source.  If picks up zero food at the source, it w
 and tries again on the next update. 
 If commanded to move_to somewhere, it stops working, and goes there.
 */
-
-/* 
-*** This skeleton file shows the required public interface for the class, which you may not modify. 
-If no protected members are shown, there must be none in your version. 
-If any protected or private members are shown here, then your class must also have them and use them as intended.
-You must delete this comment and all other comments that start with "***".
-*/
 #include "Agent.h"
+// forward declare Structure
+class Structure;
+
 class Peasant : Agent {
 public:
-	// *** define these in .cpp; initialize with zero amount being carried
 	Peasant(const std::string& name_, Point location_);
 
 	~Peasant();
@@ -37,6 +32,17 @@ public:
 
 	// output information about the current state
 	void describe() const override;
+private:
+	enum class Working_State { INBOUND, COLLECTING, OUTBOUND, DEPOSITING, NOT_WORKING };
+	Working_State working_state;
+	// stop working will output a message about stopping work,
+	// and forget source and destination
+	// used in both stop and move_to
+	void stop_working();
+
+	double amount;
+	Structure* source;
+	Structure* destination;
 };
 
 #endif
