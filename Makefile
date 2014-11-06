@@ -11,7 +11,7 @@ OBJS += Agent_factory.o Structure_factory.o
 OBJS += Geometry.o Utility.o
 PROG = proj4exe
 
-TEST_OBJS = Test.o Sim_object.o Structure.o Farm.o Geometry.o
+TEST_OBJS = Test.o Sim_object.o Structure.o Town_Hall.o Geometry.o
 TEST_EXE = testexe
 
 
@@ -28,7 +28,7 @@ $(TEST_EXE): $(TEST_OBJS)
 p4_main.o: p4_main.cpp Model.h Controller.h
 	$(CC) $(CFLAGS) p4_main.cpp
 
-Test.o: Test.cpp Farm.h
+Test.o: Test.cpp Town_Hall.h
 	$(CC) $(CFLAGS) Test.cpp
 
 Model.o: Model.cpp Model.h View.h Sim_object.h Structure.h Agent.h Agent_factory.h Structure_factory.h Geometry.h Utility.h

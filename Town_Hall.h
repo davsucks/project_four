@@ -6,7 +6,7 @@ but does no updating.
 */
 #include "Structure.h"
 
-class Town_Hall : Structure {
+class Town_Hall : public Structure {
 public:
 	Town_Hall (const std::string& name_, Point location_);
 	~Town_Hall();

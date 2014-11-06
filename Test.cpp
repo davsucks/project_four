@@ -1,4 +1,5 @@
-#include "Farm.h"
+// tests more of the deposit edge-cases
+#include "Town_Hall.h"
 #include "Geometry.h"
 #include <iostream>
 using namespace std;
@@ -6,24 +7,23 @@ using namespace std;
 int main()
 {
 	Point home(55.4, 1);
-	Farm my_farm("David's sexy farm", home);
-	my_farm.describe();
-	cout << "updating" << endl;
-	my_farm.update();
+	Town_Hall my_th("David's sexy town hall", home);
+	my_th.describe();
+	cout << "depositing 1" << endl;
+	my_th.deposit(1);
 
-	my_farm.describe();
-	cout << "withdrawing 25.75" << endl;
-	my_farm.withdraw(25.75);
-	my_farm.describe();
+	my_th.describe();
+	cout << "withdrawing 1" << endl;
+	my_th.withdraw(1);
+	my_th.describe();
 
-	cout << "updating" << endl;
-	my_farm.update();
-	my_farm.describe();
+	cout << "depositing 25" << endl;
+	my_th.deposit(25);
+	my_th.describe();
 
-	cout << "updating and withdrawing 10" << endl;
-	my_farm.update();
-	my_farm.withdraw(10);
-	my_farm.describe();
+	cout << "withdrawing 50" << endl;
+	my_th.withdraw(50);
+	my_th.describe();
 	cout << "done" << endl;
 	return 0;
 }
