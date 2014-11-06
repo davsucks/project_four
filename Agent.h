@@ -10,33 +10,29 @@ it becomes dead, and finally disappearing.
 #include <string>
 #include "Sim_object.h"
 #include "Moving_object.h"
-/* 
-*** This skeleton file shows the required public interface for the class, which you may not modify. 
-If no protected members are shown, there must be none in your version. 
-If any protected or private members are shown here, then your class must also have them and use them as intended.
-You must delete this comment and all other comments that start with "***".
-*/
-
 
 class Structure;
 class Point;
 
-// *** declare as inheriting from Sim_object and Moving_object, as specified
-class Agent : Sim_object, Moving_object {
+class Agent : public Sim_object, private Moving_object {
 public:
 
-	// *** declare destructor so that a message can be output in the destructor definition
+	Agent(const std::string& name_, Point location_);
+	~Agent();
 
-	// *** provide the definition of the following reader functions here in the class declaration
 	// return true if this agent is Alive or Disappearing
-	bool is_alive() const;
-	bool is_disappearing() const;
+	bool is_alive() const
+	{return health_state == Health_State::ALIVE;}
+	bool is_disappearing() const
+	{return health_state == Health_State::DISAPPEARING;}
 	
 	// return this Agent's location
-	Point get_location() const override;
+	Point get_location() const override
+	{return get_current_location();}
 
 	// return true if this Agent is in motion
-	bool is_moving() const;
+	bool is_moving() const
+	{return is_currently_moving();}
 	
 	// tell this Agent to start moving to location destination_
 	virtual void move_to(Point destination_);
@@ -67,13 +63,18 @@ public:
 	virtual void start_attacking(Agent *);
 
 protected:
- 	// *** Make this an abstract class by making the constructor protected to prevent direct creation.
-	// *** create with initial health is 5, speed is 5, state is Alive
-	Agent(const std::string& name_, Point location_);
+	
 
 	// calculate loss of health due to hit.
 	// if health decreases to zero or negative, Agent state becomes Dying, and any movement is stopped.
 	void lose_health(int attack_strength);
+
+private:
+
+	enum class Health_State { ALIVE, DYING, DEAD, DISAPPEARING };
+	Health_State health_state;
+
+	int health;
 };
 
 #endif
