@@ -7,15 +7,9 @@ to start attacking another Agent and will continue the attack as long as
 it is alive and the target is alive and in range. If attacked, the Soldier will
 start attacking its attacker.
 */
-	
-/* 
-*** This skeleton file shows the required public interface for the class, which you may not modify. 
-If no protected members are shown, there must be none in your version. 
-If any protected or private members are shown here, then your class must also have them and use them as intended.
-You must delete this comment and all other comments that start with "***".
-*/
+
 #include "Agent.h"
-class Soldier : Agent {
+class Soldier : public Agent {
 public:
 	
 	// *** define as specified
@@ -38,6 +32,14 @@ public:
 
 	// output information about the current state
 	void describe() const override;
+
+private:
+	enum class Attack_State { ATTACKING, NOT_ATTACKING };
+	Attack_State attack_state;
+	
+	int attack_strength;
+	int attack_range;
+	Agent* target;
 };
 
 #endif

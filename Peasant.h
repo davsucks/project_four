@@ -11,7 +11,7 @@ If commanded to move_to somewhere, it stops working, and goes there.
 // forward declare Structure
 class Structure;
 
-class Peasant : Agent {
+class Peasant : public Agent {
 public:
 	Peasant(const std::string& name_, Point location_);
 

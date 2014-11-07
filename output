@@ -1,0 +1,61 @@
+Sim_object david constructed
+Agent david constructed
+Soldier david constructed
+Sim_object osama_bin_laden constructed
+Agent osama_bin_laden constructed
+Soldier osama_bin_laden constructed
+Soldier david at (10, 10)
+   Health is 5
+   Stopped
+   Not attacking
+Soldier osama_bin_laden at (0, 0)
+   Health is 5
+   Stopped
+   Not attacking
+Should be an out of range error:
+david: Target is out of range!
+david: I'm on the way
+david: step...
+Broadcasting....
+david: step...
+Broadcasting....
+david: I'm there!
+Broadcasting....
+Soldier david at (0, 0)
+   Health is 5
+   Stopped
+   Not attacking
+david: I'm attacking!
+Soldier david at (0, 0)
+   Health is 5
+   Stopped
+   Attacking osama_bin_laden
+david: Clang!
+osama_bin_laden: Ouch!
+osama_bin_laden: I'm attacking!
+david: Clang!
+osama_bin_laden: Ouch!
+david: Clang!
+osama_bin_laden: Arrggh!
+david: I triumph!
+Soldier david at (0, 0)
+   Health is 5
+   Stopped
+   Not attacking
+Soldier osama_bin_laden at (0, 0)
+   Is dying
+   Not attacking
+Broadcasting....
+Soldier osama_bin_laden at (0, 0)
+   Is dead
+   Not attacking
+Soldier osama_bin_laden at (0, 0)
+   Is disappearing
+   Not attacking
+Done!
+Soldier osama_bin_laden destructed
+Agent osama_bin_laden destructed
+Sim_object osama_bin_laden destructed
+Soldier david destructed
+Agent david destructed
+Sim_object david destructed

@@ -33,7 +33,7 @@ $(TEST_EXE): $(TEST_OBJS)
 p4_main.o: p4_main.cpp Model.h Controller.h
 	$(CC) $(CFLAGS) p4_main.cpp
 
-Test.o: Test.cpp Agent.h
+Test.o: Test.cpp
 	$(CC) $(CFLAGS) Test.cpp
 
 Model.o: Model.cpp Model.h View.h Sim_object.h Structure.h Agent.h Agent_factory.h Structure_factory.h Geometry.h Utility.h

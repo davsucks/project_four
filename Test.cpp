@@ -1,28 +1,45 @@
-// tests basic peasant behavior
+// tests basic soldier functionality
+#include "Soldier.h"
 #include "Peasant.h"
-#include "Farm.h"
-#include "Town_Hall.h"
 #include "Geometry.h"
+#include "Utility.h"
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	Point home(10, 10);
-	Point farm_p(10, 15);
-	Point town_hall_p(10, 5);
+	Point david_home(10, 10);
+	Point enemy_home(0,0);
 
-	Farm farm("DA FOOD PLACE", farm_p);
-	Town_Hall town_hall("DA STORE PLACE", town_hall_p);
-	Peasant david("david", home);
+
+	Soldier david("david", david_home);
+	Soldier enemy("osama_bin_laden", enemy_home);
 
 	david.describe();
-	david.start_working(&farm, &town_hall);
+	enemy.describe();
+	// first try to kill the peasant
+	try {
+		david.start_attacking(&enemy);
+	} catch (Error& e) {
+		cout << "Should be an out of range error:\n";
+		cout << e.what() << endl;;
+	}
+	// now move to the peasant
+	david.move_to(enemy.get_location());
+	// step.. step.. step..
+	david.update(); david.update(); david.update();
+	// im here!
 	david.describe();
-	cout << endl << "looping and working!" << endl; 
-	for(int i = 0; i < 5; ++i) {
-		david.update();
-		david.describe();
+	// kill the peasant
+	david.start_attacking(&enemy);
+	// whee
+	david.describe();
+	// stab stab stab
+	david.update(); david.update(); david.update();
+	david.describe();
+	for (int i = 0; i < 3; ++i) {
+		enemy.describe();
+		enemy.update();
 	}
 	
 	cout << "Done!" << endl;

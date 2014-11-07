@@ -10,9 +10,9 @@ static const int max_food = 35;
 // *** define these in .cpp; initialize with zero amount being carried
 Peasant::Peasant(const string& name_, Point location_)
 :
-Agent(name_, location_)
+Agent(name_, location_),
+amount{0}
 {
-	amount = 0;
 	cout << "Peasant " << name_ << " constructed" << endl;
 }
 
