@@ -21,9 +21,8 @@ information, immediately calling the draw function will print out a map showing 
 using the new settings.
 */
 #include <string>
-#include <list>
+#include <map>
 #include "Geometry.h"
-class Sim_object;
 
 class View {
 public:
@@ -58,13 +57,13 @@ public:
 	void set_defaults();
 
 private:
-	std::list<Sim_object*> object_list;
+	bool get_subscripts(int &ix, int &iy, Point location);
+	std::map<std::string, Point> object_list;
 
 	int size;
 	double scale;
 	Point origin;
 
-	bool get_subscripts(int &ix, int &iy, Point location);
 
 };
 

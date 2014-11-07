@@ -22,6 +22,7 @@ TEST_EXE = testexe
 
 default: $(PROG)
 
+test: CFLAGS += -gdwarf-3
 test: $(TEST_EXE)
 
 $(PROG): $(OBJS)
