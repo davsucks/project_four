@@ -22,6 +22,7 @@ using the new settings.
 */
 #include <string>
 #include <map>
+#include <vector>
 #include "Geometry.h"
 
 class View {
@@ -58,6 +59,11 @@ public:
 
 private:
 	bool get_subscripts(int &ix, int &iy, Point location);
+
+	void populate_grid(std::vector<std::vector<std::string>>& grid, std::vector<std::string>& outside);
+	void print_grid(std::vector<std::vector<std::string>>& grid, std::vector<std::string>& outside);
+	void print_outliers(std::vector<std::string>& outside);
+
 	std::map<std::string, Point> object_list;
 
 	int size;

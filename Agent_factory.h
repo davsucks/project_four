@@ -3,7 +3,7 @@
 
 #include <string>
 
-struct Point;
+class Point;
 class Agent;
 
 // Create and return the pointer to the specified Agent type. If the type

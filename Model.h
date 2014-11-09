@@ -18,24 +18,14 @@ Notice how only the Standard Library headers need to be included - reduced coupl
 
 */
 #include <string>
-
-/* 
-*** This skeleton file shows the required public interface for the class, which you may not modify. 
-If no protected members are shown, there must be none in your version. 
-If any protected or private members are shown here, then your class must also have them and use them as intended.
-You must delete this comment and all other comments that start with "***".
-*/
-
-/* 
-*** Here provide the appropriate declarations for a global variable named g_Model_ptr of type Model*
- - follow the Header File Guidelines. 
- */
-
+#include <vector>
+// TODO: uncoment this
+// extern g_Model_ptr;
 class Structure;
 class Agent;
 class View;
 class Point;
-class g_Model_ptr;
+class Sim_object;
  
 class Model {
 public:
@@ -85,6 +75,9 @@ public:
 	
 private:
 	int time;
+	std::vector<Sim_object*> sim_objs;
+	std::vector<Structure*> structure_objs;
+	std::vector<Agent*> agent_objs;
 
 
 	// disallow copy/move construction or assignment

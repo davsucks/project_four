@@ -27,24 +27,19 @@ origin(def_origin_x_c, def_origin_y_c)
 
 // Save the supplied name and location for future use in a draw() call
 // If the name is already present,the new location replaces the previous one.
-void View::update_location(const std::string& name, Point location)
+void View::update_location(const string& name, Point location)
 {
 	object_list[name] = location;
 }
 
 // Remove the name and its location; no error if the name is not present.
-void View::update_remove(const std::string& name)
+void View::update_remove(const string& name)
 {
 	object_list.erase(name);
 }
 
-// prints out the current map
-void View::draw()
+void View::populate_grid(vector<vector<string>>& grid, vector<string>& outside)
 {
-	// first populate an empty grid
-	vector< vector<string>> grid (size, vector<string>(size, ". "));
-	vector<string> outside;
-	// populate grid/outside with proper names and locations
 	int ix = 0;
 	int iy = 0;
 	for (auto& i : object_list) {
@@ -56,42 +51,42 @@ void View::draw()
 			outside.insert(insert_itr, i.first);
 		} else {
 			// is in the grid so add to grind!
-			// TODO: which looks better?
-			// TODO: this:
-			// if (grid[iy][ix] != ". ") {
-			// 	// a name is already in this cell
-			// 	grid[iy][ix] = "* ";
-			// } else {
-			// 	grid[iy][ix] = i.first;
-			// }
-			// TODO: or this?
-			const int beginning_c = 0;
 			const int max_char_c = 2;
-			grid[iy][ix] = (grid[iy][ix] == ". " ? i.first.substr(beginning_c, max_char_c) : "* ");
+			// add the first to chars of the name if its the first name in the cell,
+			// otherwise make it an asterik
+			grid[iy][ix] = (grid[iy][ix] == ". " ? i.first.substr(0, max_char_c) : "* ");
 		}
 	}
-	// then print everything
+}
+
+void View::print_outliers(vector<string>& outside)
+{
+	ostringstream ss;
+	copy(outside.begin(), outside.end() - 1, ostream_iterator<string>(ss, ", "));
+	ss << outside.back();
+	cout << ss.str();
+	cout << " outside the map" << endl;
+}
+
+void View::print_grid(vector<vector<string>>& grid, vector<string>& outside)
+{
 	cout << "Display size: " << size << ", scale: " << scale << ", origin: " << origin << endl;
 	// print everyone who's outside of the grid
-	if (outside.size()) {
-		ostringstream ss;
-		copy(outside.begin(), outside.end() - 1, ostream_iterator<string>(ss, ", "));
-		ss << outside.back();
-		cout << ss.str();
-		cout << " outside the map" << endl;
-	}
+	if (outside.size())
+		print_outliers(outside);
 	// print the grid
 	const int label_freq_c = 3;
 	for (int y = size - 1; y >= 0; --y) {
 		if (y % label_freq_c == 0) {
 			// store the label
-			int label = (y * scale) + origin.y;
+			// int(origin.x) + int(y*scale)
+			int label = int(origin.y) + int(y * scale);
 			// save old settings
-			ios::fmtflags old_settings = cout.flags();
+			// ios::fmtflags old_settings = cout.flags();
 			// actually print the label
-			cout << setw(4) << fixed << label << " ";
+			cout << setw(4) << label << " ";
 			// resore old settings
-			cout.flags(old_settings);
+			// cout.flags(old_settings);
 		} else {
 			cout << "     ";
 		}
@@ -101,9 +96,8 @@ void View::draw()
 		cout << endl;
 	}
 	// now print labels for the last row
-	// TODO: refactor all this shite
 	for (int x = 0; x < size; x += 3) {
-		int label = (x * scale) + origin.x;
+		int label = int(x * scale) + int(origin.x);
 		// save old settings
 		ios::fmtflags old_settings = cout.flags();
 		// actually print the label
@@ -112,6 +106,18 @@ void View::draw()
 		cout.flags(old_settings);
 	}
 	cout << endl;
+}
+
+// prints out the current map
+void View::draw()
+{
+	// first populate an empty grid
+	vector< vector<string>> grid (size, vector<string>(size, ". "));
+	vector<string> outside;
+	// populate grid/outside with proper names and locations
+	populate_grid(grid, outside);
+	// then print everything
+	print_grid(grid, outside);
 }
 
 // Discard the saved information - drawing will show only a empty pattern
