@@ -1,6 +1,7 @@
 #include "Agent.h"
 #include "Geometry.h"
 #include "Utility.h"
+#include "Model.h"
 #include <iostream>
 using namespace std;
 
@@ -109,8 +110,17 @@ void Agent::describe() const
 // ask Model to broadcast our current state to all Views
 void Agent::broadcast_current_state()
 {
-	// TODO: implement this shite maw fucka
-	cout << "Broadcasting...." << endl;
+	switch(health_state) {
+		case Health_State::ALIVE:
+			g_Model_ptr->notify_location(get_name(), get_current_location());
+			break;
+		case Health_State::DYING:
+		case Health_State::DEAD:
+		case Health_State::DISAPPEARING:
+		default:
+			g_Model_ptr->notify_gone(get_name());
+			break;
+	}
 }
 
 /* Fat Interface for derived classes */

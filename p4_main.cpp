@@ -21,15 +21,11 @@ int main ()
 	cout.precision(2);
 
 	// create a Model object;
-	// TODO: uncomment this
-    // g_Model_ptr = new Model;
+    g_Model_ptr = new Model;
 	// create the Controller object and go
 	Controller controller;
 
-	// TODO: uncomment this
-	// controller.run();
+	controller.run();
     
-    // TODO: uncomment this
-    // delete g_Model_ptr;
+    delete g_Model_ptr;
 }
-

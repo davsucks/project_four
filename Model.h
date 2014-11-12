@@ -18,9 +18,12 @@ Notice how only the Standard Library headers need to be included - reduced coupl
 
 */
 #include <string>
-#include <vector>
-// TODO: uncoment this
-// extern g_Model_ptr;
+#include <map>
+#include <list>
+// forward declare model to be able to declare g_ModeL_ptr
+class Model;
+extern Model* g_Model_ptr;
+
 class Structure;
 class Agent;
 class View;
@@ -75,10 +78,11 @@ public:
 	
 private:
 	int time;
-	std::vector<Sim_object*> sim_objs;
-	std::vector<Structure*> structure_objs;
-	std::vector<Agent*> agent_objs;
+	std::map<std::string, Sim_object*> sim_objs;
+	std::map<std::string, Structure*> structure_objs;
+	std::map<std::string, Agent*> agent_objs;
 
+	std::list<View*> views;
 
 	// disallow copy/move construction or assignment
 	Model(const Model&) = delete;

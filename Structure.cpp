@@ -1,5 +1,6 @@
 #include "Structure.h"
 #include "Geometry.h"
+#include "Model.h"
 #include <iostream>
 using namespace std;
 
@@ -22,5 +23,5 @@ void Structure::describe() const
 
 void Structure::broadcast_current_state()
 {
-	// TODO: add something here
+	g_Model_ptr->notify_location(get_name(), location);
 }
