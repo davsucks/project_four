@@ -11,6 +11,7 @@ static const int max_food = 35;
 Peasant::Peasant(const string& name_, Point location_)
 :
 Agent(name_, location_),
+working_state{Working_State::NOT_WORKING},
 amount{0}
 {
 	cout << "Peasant " << name_ << " constructed" << endl;
@@ -93,7 +94,10 @@ void Peasant::stop_working()
 // overridden to suspend working behavior
 void Peasant::move_to(Point dest)
 {
-	stop_working();
+	if(working_state != Working_State::NOT_WORKING) {
+		stop_working();
+		working_state = Working_State::NOT_WORKING;
+	}
 	Agent::move_to(dest);
 }
 
@@ -144,16 +148,16 @@ void Peasant::describe() const
 	cout << "   Carrying " << amount << endl;
 	switch(working_state) {
 		case Working_State::INBOUND:
-			cout << "   Inbound to source " << source->get_location() << endl;
+			cout << "   Inbound to source " << source->get_name() << endl;
 			break;
 		case Working_State::OUTBOUND:
-			cout << "   Outbound to destination " << destination->get_location() << endl;
+			cout << "   Outbound to destination " << destination->get_name() << endl;
 			break;
 		case Working_State::COLLECTING:
-			cout << "   Collecting at source " << source->get_location() << endl;
+			cout << "   Collecting at source " << source->get_name() << endl;
 			break;
 		case Working_State::DEPOSITING:
-			cout << "   Depositing at destination " << destination->get_location() << endl;
+			cout << "   Depositing at destination " << destination->get_name() << endl;
 			break;
 		case Working_State::NOT_WORKING:
 		default:

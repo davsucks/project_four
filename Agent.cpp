@@ -11,7 +11,8 @@ static const int initial_speed = 5;
 Agent::Agent(const string& name_, Point location_)
 :
 Sim_object(name_),
-Moving_object(location_, initial_speed)
+Moving_object(location_, initial_speed),
+health_state{Health_State::ALIVE}
 {
 	// need to just set the health_state and initial_health
 	health_state = Health_State::ALIVE;

@@ -1,4 +1,5 @@
 #include "Town_Hall.h"
+#include <iostream>
 using namespace std;
 
 Town_Hall::Town_Hall(const string& name_, Point location_)

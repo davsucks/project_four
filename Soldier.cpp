@@ -10,11 +10,11 @@ static const int def_range_c {2};
 Soldier::Soldier(const std::string& name_, Point location_)
 :
 Agent(name_, location_),
+attack_state{Attack_State::NOT_ATTACKING},
 attack_strength {def_strength_c},
 attack_range {def_range_c},
 target {nullptr}
 {
-	attack_state = Attack_State::NOT_ATTACKING;
 	cout << "Soldier " << name_ << " constructed" << endl;
 }
 

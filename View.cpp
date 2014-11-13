@@ -80,13 +80,16 @@ void View::print_grid(vector<vector<string>>& grid, vector<string>& outside)
 		if (y % label_freq_c == 0) {
 			// store the label
 			// int(origin.x) + int(y*scale)
-			int label = int(origin.y) + int(y * scale);
+			double label = origin.y + (y * scale);
 			// save old settings
-			// ios::fmtflags old_settings = cout.flags();
+			ios::fmtflags old_settings = cout.flags();
+			int old_precision = cout.precision();
 			// actually print the label
-			cout << setw(4) << label << " ";
+			cout.precision(0);
+			cout << setw(4) << setprecision(0) << fixed << label << " ";
 			// resore old settings
-			// cout.flags(old_settings);
+			cout.precision(old_precision);
+			cout.flags(old_settings);
 		} else {
 			cout << "     ";
 		}
@@ -96,13 +99,16 @@ void View::print_grid(vector<vector<string>>& grid, vector<string>& outside)
 		cout << endl;
 	}
 	// now print labels for the last row
-	for (int x = 0; x < size; x += 3) {
-		int label = int(x * scale) + int(origin.x);
+	for (int x = 0; x < size; x += label_freq_c) {
+		double label = (x * scale) + origin.x;
 		// save old settings
+
 		ios::fmtflags old_settings = cout.flags();
+		int old_precision = cout.precision();
 		// actually print the label
-		cout << "  " << setw(4) << fixed << label;
+		cout << "  " << setw(4) << setprecision(0) << fixed << label;
 		// restore old settings
+		cout.precision(old_precision);
 		cout.flags(old_settings);
 	}
 	cout << endl;
@@ -111,7 +117,7 @@ void View::print_grid(vector<vector<string>>& grid, vector<string>& outside)
 // prints out the current map
 void View::draw()
 {
-	// first populate an empty grid
+	// first create an empty grid
 	vector< vector<string>> grid (size, vector<string>(size, ". "));
 	vector<string> outside;
 	// populate grid/outside with proper names and locations

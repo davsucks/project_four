@@ -42,7 +42,7 @@ public:
 	int get_time() {return time;}
 
 	// is name already in use for either agent or structure?
-    // either the identical name, or identical in first two characters counts as in-use
+    // return true if the name matches the name of an existing agent or structure
 	bool is_name_in_use(const std::string& name) const;
 
 	// is there a structure with this name?
@@ -78,6 +78,7 @@ public:
 	
 private:
 	int time;
+	
 	std::map<std::string, Sim_object*> sim_objs;
 	std::map<std::string, Structure*> structure_objs;
 	std::map<std::string, Agent*> agent_objs;

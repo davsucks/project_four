@@ -72,6 +72,7 @@ void Controller::run()
 		cout << "\nTime " << g_Model_ptr->get_time() << ": Enter command: ";
 		cin >> first_word;
 		if (first_word == "quit") {
+			delete view;
 			cout << "Done" << endl;
 			return;
 		}
@@ -122,33 +123,33 @@ void Controller::default_fn(View* view)
 void check_cin(string message)
 {
 	if (!cin) {
-		clear_and_skip_line();
 		throw Error(message);
 	}
 }
 void Controller::size(View* view)
 {
-	int new_size;
-	cin >> new_size;
+	int size;
+	cin >> size;
 	check_cin(expected_int);
-	view->set_size(new_size);
+	view->set_size(size);
 }
 
 void Controller::zoom(View* view)
 {
-	double new_scale;
-	cin >> new_scale;
+	double scale;
+	cin >> scale;
 	check_cin(expected_double);
+	view->set_scale(scale);
 }
 
 Point read_Point()
 {
-	double new_x, new_y;
-	cin >> new_x;
+	double x, y;
+	cin >> x;
 	check_cin(expected_double);
-	cin >> new_y;
+	cin >> y;
 	check_cin(expected_double);
-	return Point(new_x, new_y);
+	return Point(x, y);
 }
 void Controller::pan(View* view)
 {
@@ -175,7 +176,7 @@ bool char_is_alnum(char c)
 {
 	return isalnum(c);
 }
-bool string_is_valid(const string &str)
+bool string_is_alnum(const string &str)
 {
     return find_if_not(str.begin(), str.end(), char_is_alnum) == str.end();
 }
@@ -185,7 +186,9 @@ static const int min_chars_c = 2;
 // isn't alphanumeric
 void check_name(string name)
 {
-	if (name.length() < min_chars_c || !string_is_valid(name))
+	bool too_short = name.length() < min_chars_c;
+	bool not_alnum = !string_is_alnum(name);
+	if (too_short || not_alnum || g_Model_ptr->is_name_in_use(name))
 		throw Error(invalid_name);
 }
 void Controller::build(View* view)
@@ -220,10 +223,10 @@ void Controller::move(Agent* agent)
 void Controller::work(Agent* agent)
 {
 	string destination_str, source_str;
-	cin >> destination_str;
-	Structure* destination = g_Model_ptr->get_structure_ptr(destination_str);
 	cin >> source_str;
 	Structure* source = g_Model_ptr->get_structure_ptr(source_str);
+	cin >> destination_str;
+	Structure* destination = g_Model_ptr->get_structure_ptr(destination_str);
 	agent->start_working(source, destination);
 }
 
